@@ -1,26 +1,26 @@
-/*
- * ==========================================================================
- * DASHBOARD CSS
- * ==========================================================================
- *
- * 文件对应关系：
- *   dashboard      → .dashboard-*
- *   task           → .task-*
- *   tags           → .tags-*
- *   recent_notes   → .recent-notes-* / .recent-note-*
- *   projects       → .projects-* / .project-*
- *
- * 修改建议：
+/* ==================================================
+ * WIDGETS CSS
+ * 作者：Kerwin
+ * 用途：
+ *   Home Dashboard 各 Widget 的样式
+ * 对应文件：
+ *   Home/Widgets/dashboard.md    → .dashboard-*
+ *   Home/Widgets/task.md         → .task-*
+ *   Home/Widgets/tags.md         → .tags-* / .tag-level-*
+ *   Home/Widgets/recent_notes.md → .recent-notes-* / .recent-note-*
+ *   Home/Widgets/projects.md     → .projects-* / .project-*
+ * 说明：
  *   1. 改颜色：优先改 THEME VARIABLES
  *   2. 改圆角：搜索 border-radius
  *   3. 改间距：搜索 padding / margin
  *   4. 改模块样式：按模块标题查找
- */
+ * ================================================== */
 
-/* ==========================================================================
+/* ==================================================
  * THEME VARIABLES
- * 全局 Dashboard 变量
- * ========================================================================== */
+ * 用途：
+ *   全局 Dashboard 颜色与边框变量
+ * ================================================== */
 
 body {
   --dash-card-bg: rgba(255, 255, 255, 0.04);
@@ -33,7 +33,7 @@ body {
   --dash-ring-bg: rgba(255, 255, 255, 0.12);
 }
 
-/* 亮色主题 */
+/* ── 亮色主题 ── */
 .theme-light {
   --dash-card-bg: rgba(0, 0, 0, 0.035);
   --dash-card-bg-hover: rgba(0, 0, 0, 0.065);
@@ -45,7 +45,7 @@ body {
   --dash-ring-bg: rgba(0, 0, 0, 0.12);
 }
 
-/* 暗色主题 */
+/* ── 暗色主题 ── */
 .theme-dark {
   --dash-card-bg: rgba(255, 255, 255, 0.04);
   --dash-card-bg-hover: rgba(255, 255, 255, 0.07);
@@ -57,10 +57,13 @@ body {
   --dash-ring-bg: rgba(255, 255, 255, 0.12);
 }
 
-/* ==========================================================================
+/* ==================================================
  * DASHBOARD
- * 对应文件：dashboard
- * ========================================================================== */
+ * 对应文件：
+ *   Home/Widgets/dashboard.md
+ * 选择器：
+ *   .dashboard-*
+ * ================================================== */
 
 .dashboard-panel {
   padding: 24px;
@@ -177,10 +180,13 @@ body {
   font-weight: 700;
 }
 
-/* ==========================================================================
+/* ==================================================
  * TASK
- * 对应文件：task
- * ========================================================================== */
+ * 对应文件：
+ *   Home/Widgets/task.md
+ * 选择器：
+ *   .task-*
+ * ================================================== */
 
 .task-panel-top {
   display: flex;
@@ -256,10 +262,13 @@ body {
   font-size: 13px;
 }
 
-/* ==========================================================================
+/* ==================================================
  * TAGS
- * 对应文件：tags
- * ========================================================================== */
+ * 对应文件：
+ *   Home/Widgets/tags.md
+ * 选择器：
+ *   .tags-*
+ * ================================================== */
 
 .tags-panel {
   padding: 24px;
@@ -338,52 +347,67 @@ body {
   font-size: 13px;
 }
 
-/* 标签热度颜色 */
-.tag-level-1 {
-  background: rgba(120, 120, 255, 0.08);
+/* ==================================================
+ * TAGS COLOR LEVEL
+ * 用途：
+ *   标签热度颜色；level 越高，颜色越明显
+ * 选择器：
+ *   .tag-level-*
+ * ================================================== */
+
+.tags-panel-item.tag-level-1 {
+  background: rgba(120, 120, 255, 0.12) !important;
+  border-color: rgba(120, 120, 255, 0.24) !important;
 }
 
-.tag-level-2 {
-  background: rgba(120, 180, 255, 0.12);
+.tags-panel-item.tag-level-2 {
+  background: rgba(80, 150, 255, 0.16) !important;
+  border-color: rgba(80, 150, 255, 0.28) !important;
 }
 
-.tag-level-3 {
-  background: rgba(0, 180, 255, 0.14);
+.tags-panel-item.tag-level-3 {
+  background: rgba(0, 180, 255, 0.18) !important;
+  border-color: rgba(0, 180, 255, 0.32) !important;
 }
 
-.tag-level-4 {
-  background: rgba(80, 200, 160, 0.16);
+.tags-panel-item.tag-level-4 {
+  background: rgba(0, 190, 140, 0.20) !important;
+  border-color: rgba(0, 190, 140, 0.34) !important;
 }
 
-.tag-level-5 {
-  background: rgba(255, 160, 60, 0.18);
+.tags-panel-item.tag-level-5 {
+  background: rgba(255, 160, 60, 0.24) !important;
+  border-color: rgba(255, 160, 60, 0.38) !important;
 }
 
-/* 亮色模式下增强标签颜色 */
-.theme-light .tag-level-1 {
-  background: rgba(120, 120, 255, 0.12);
+/* ── 亮色模式增强标签热度 ── */
+.theme-light .tags-panel-item.tag-level-1 {
+  background: rgba(120, 120, 255, 0.15) !important;
 }
 
-.theme-light .tag-level-2 {
-  background: rgba(80, 150, 255, 0.15);
+.theme-light .tags-panel-item.tag-level-2 {
+  background: rgba(80, 150, 255, 0.18) !important;
 }
 
-.theme-light .tag-level-3 {
-  background: rgba(0, 150, 220, 0.17);
+.theme-light .tags-panel-item.tag-level-3 {
+  background: rgba(0, 150, 220, 0.20) !important;
 }
 
-.theme-light .tag-level-4 {
-  background: rgba(0, 160, 120, 0.18);
+.theme-light .tags-panel-item.tag-level-4 {
+  background: rgba(0, 160, 120, 0.22) !important;
 }
 
-.theme-light .tag-level-5 {
-  background: rgba(255, 140, 40, 0.22);
+.theme-light .tags-panel-item.tag-level-5 {
+  background: rgba(255, 140, 40, 0.26) !important;
 }
 
-/* ==========================================================================
+/* ==================================================
  * RECENT NOTES
- * 对应文件：recent_notes
- * ========================================================================== */
+ * 对应文件：
+ *   Home/Widgets/recent_notes.md
+ * 选择器：
+ *   .recent-notes-* / .recent-note-*
+ * ================================================== */
 
 .recent-notes {
   padding: 24px;
@@ -445,10 +469,13 @@ body {
   font-size: 12px;
 }
 
-/* ==========================================================================
+/* ==================================================
  * PROJECTS
- * 对应文件：projects
- * ========================================================================== */
+ * 对应文件：
+ *   Home/Widgets/projects.md
+ * 选择器：
+ *   .projects-* / .project-*
+ * ================================================== */
 
 .projects-panel {
   margin-top: 24px;
@@ -526,7 +553,7 @@ body {
   background: rgba(120, 255, 200, 0.14);
 }
 
-/* 亮色模式下增强项目状态 */
+/* ── 亮色模式下增强项目状态 ── */
 .theme-light .project-status-active {
   background: rgba(80, 150, 255, 0.18);
 }
@@ -553,7 +580,10 @@ body {
 
 /* ==================================================
  * PROJECT PAGE PROGRESS
- * 项目页内进度组件
+ * 用途：
+ *   项目页内进度组件
+ * 选择器：
+ *   .project-progress*
  * ================================================== */
 
 .project-progress {
@@ -601,19 +631,21 @@ body {
   color: var(--text-muted);
 }
 
-/* ==========================================================================
+/* ==================================================
  * HOME DASHBOARD MODE
- * 仅作用于 Home.md
- *
- * Home.md 顶部添加：
- *
- * ---
- * cssclasses:
- *   - home-dashboard
- * ---
- * ========================================================================== */
+ * 用途：
+ *   仅作用于 Home.md
+ * 说明：
+ *   Home.md 顶部添加：
+ *   ---
+ *   cssclasses:
+ *     - home-dashboard
+ *   ---
+ * 选择器：
+ *   .home-dashboard
+ * ================================================== */
 
-/* 清理嵌入文件外壳 */
+/* ── 清理嵌入文件外壳 ── */
 .home-dashboard .markdown-embed {
   width: 100% !important;
   max-width: 100% !important;
@@ -647,37 +679,37 @@ body {
   padding-right: 0 !important;
 }
 
-/* 隐藏嵌入标题和右上角按钮 */
+/* ── 隐藏嵌入标题和右上角按钮 ── */
 .home-dashboard .markdown-embed-title,
 .home-dashboard .markdown-embed-link {
   display: none !important;
 }
 
-/* 隐藏页面标题 */
+/* ── 隐藏页面标题 ── */
 .home-dashboard .inline-title,
 .home-dashboard h1 {
   display: none !important;
 }
 
-/* 隐藏 Properties */
+/* ── 隐藏 Properties ── */
 .home-dashboard .metadata-container,
 .home-dashboard .metadata-properties {
   display: none !important;
 }
 
-/* 隐藏标签区 */
+/* ── 隐藏标签区 ── */
 .home-dashboard .tag,
 .home-dashboard .tree-item-self.tag-pane-tag {
   display: none !important;
 }
 
-/* 隐藏出链 */
+/* ── 隐藏出链 ── */
 .home-dashboard .outgoing-links,
 .home-dashboard .outgoing-link-pane {
   display: none !important;
 }
 
-/* 隐藏反向链接 */
+/* ── 隐藏反向链接 ── */
 .home-dashboard .backlinks-backlink,
 .home-dashboard .backlink-pane,
 .home-dashboard .embedded-backlinks,
@@ -685,13 +717,13 @@ body {
   display: none !important;
 }
 
-/* Dashboard 最大宽度 */
+/* ── Dashboard 最大宽度 ── */
 .home-dashboard .markdown-preview-sizer {
   max-width: 1400px;
   margin: 0 auto;
 }
 
-/* 页面顶部留白 */
+/* ── 页面顶部留白 ── */
 .home-dashboard .markdown-preview-view {
   padding-top: 12px;
 }
