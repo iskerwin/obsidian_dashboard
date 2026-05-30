@@ -21,6 +21,8 @@ const CONFIG = {
 };
 
 // ── 按钮组 ──
+const root = dv.container;
+
 const createToggle = (container, showCompleted, onChange) => {
   const switchContainer = container.createEl("div", {
     cls: "task-switch",
@@ -66,9 +68,10 @@ const groupAndSortTasks = (tasks) => {
 
 // ── 渲染 ──
 const renderTasks = (showCompleted) => {
-  dv.container.empty();
+  root.empty();
+  dv.container = root;
 
-  const top = dv.container.createEl("div", {
+  const top = root.createEl("div", {
     cls: "task-panel-top",
   });
 
@@ -79,12 +82,18 @@ const renderTasks = (showCompleted) => {
 
   createToggle(top, showCompleted, (val) => renderTasks(val));
 
+  const content = root.createEl("div", {
+    cls: "task-content",
+  });
+
   let allTasks = dv
     .pages()
     .where(
       (p) =>
-        p.file.tasks && !String(p.file.path).startsWith(CONFIG.excludePath),
-    ).file.tasks;
+        p.file.tasks &&
+        !String(p.file.path).startsWith(CONFIG.excludePath)
+    )
+    .file.tasks;
 
   if (!showCompleted) {
     allTasks = allTasks.where((t) => !t.completed);
@@ -93,15 +102,16 @@ const renderTasks = (showCompleted) => {
   const groupedTasks = groupAndSortTasks(allTasks);
 
   if (groupedTasks.length === 0) {
-    dv.container.createEl("div", {
-      cls: "task-empty",
-      text: showCompleted ? "暂无任务" : "没有未完成任务",
-    });
-    return;
+  content.createEl("div", {
+    cls: "task-empty",
+    text: showCompleted ? "暂无任务" : "没有未完成任务",
+  });
+  dv.container = root;
+  return;
   }
 
   groupedTasks.forEach((group) => {
-    const header = dv.container.createEl("div", {
+    const header = content.createEl("div", {
       cls: "task-group-title",
     });
 
@@ -114,9 +124,14 @@ const renderTasks = (showCompleted) => {
       text: group.tasks.length,
     });
 
+    const listWrapper = content.createEl("div", {
+      cls: "task-list-wrapper",
+    });
+
+    dv.container = listWrapper;
     dv.taskList(group.tasks, false);
+    dv.container = root;
   });
 };
 
 renderTasks(false);
-```
