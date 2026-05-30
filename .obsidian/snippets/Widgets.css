@@ -1,0 +1,697 @@
+/*
+ * ==========================================================================
+ * DASHBOARD CSS
+ * ==========================================================================
+ *
+ * 文件对应关系：
+ *   dashboard      → .dashboard-*
+ *   task           → .task-*
+ *   tags           → .tags-*
+ *   recent_notes   → .recent-notes-* / .recent-note-*
+ *   projects       → .projects-* / .project-*
+ *
+ * 修改建议：
+ *   1. 改颜色：优先改 THEME VARIABLES
+ *   2. 改圆角：搜索 border-radius
+ *   3. 改间距：搜索 padding / margin
+ *   4. 改模块样式：按模块标题查找
+ */
+
+/* ==========================================================================
+ * THEME VARIABLES
+ * 全局 Dashboard 变量
+ * ========================================================================== */
+
+body {
+  --dash-card-bg: rgba(255, 255, 255, 0.04);
+  --dash-card-bg-hover: rgba(255, 255, 255, 0.07);
+  --dash-soft-bg: rgba(255, 255, 255, 0.03);
+  --dash-muted-bg: rgba(255, 255, 255, 0.06);
+  --dash-border: rgba(255, 255, 255, 0.08);
+  --dash-border-strong: rgba(255, 255, 255, 0.14);
+  --dash-divider: rgba(255, 255, 255, 0.06);
+  --dash-ring-bg: rgba(255, 255, 255, 0.12);
+}
+
+/* 亮色主题 */
+.theme-light {
+  --dash-card-bg: rgba(0, 0, 0, 0.035);
+  --dash-card-bg-hover: rgba(0, 0, 0, 0.065);
+  --dash-soft-bg: rgba(0, 0, 0, 0.025);
+  --dash-muted-bg: rgba(0, 0, 0, 0.055);
+  --dash-border: rgba(0, 0, 0, 0.08);
+  --dash-border-strong: rgba(0, 0, 0, 0.14);
+  --dash-divider: rgba(0, 0, 0, 0.08);
+  --dash-ring-bg: rgba(0, 0, 0, 0.12);
+}
+
+/* 暗色主题 */
+.theme-dark {
+  --dash-card-bg: rgba(255, 255, 255, 0.04);
+  --dash-card-bg-hover: rgba(255, 255, 255, 0.07);
+  --dash-soft-bg: rgba(255, 255, 255, 0.03);
+  --dash-muted-bg: rgba(255, 255, 255, 0.06);
+  --dash-border: rgba(255, 255, 255, 0.08);
+  --dash-border-strong: rgba(255, 255, 255, 0.14);
+  --dash-divider: rgba(255, 255, 255, 0.06);
+  --dash-ring-bg: rgba(255, 255, 255, 0.12);
+}
+
+/* ==========================================================================
+ * DASHBOARD
+ * 对应文件：dashboard
+ * ========================================================================== */
+
+.dashboard-panel {
+  padding: 24px;
+  overflow: hidden;
+  border: 1px solid var(--dash-border);
+  border-radius: 24px;
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(120, 120, 255, 0.18),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(0, 220, 255, 0.15),
+      transparent 35%
+    ),
+    var(--dash-soft-bg);
+}
+
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.dashboard-label {
+  margin-bottom: 8px;
+  color: var(--text-muted);
+  font-size: 12px;
+  letter-spacing: 0.15em;
+}
+
+.dashboard-title {
+  margin-bottom: 10px;
+  color: var(--text-normal);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.dashboard-status {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.dashboard-ring {
+  position: relative;
+  flex: 0 0 120px;
+  width: 120px;
+  height: 120px;
+}
+
+.dashboard-ring svg {
+  display: block;
+}
+
+.dashboard-ring-bg {
+  fill: none;
+  stroke: var(--dash-ring-bg);
+  stroke-width: 10;
+}
+
+.dashboard-ring-progress {
+  fill: none;
+  stroke: var(--interactive-accent);
+  stroke-width: 10;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.6s ease;
+}
+
+.dashboard-ring-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-normal);
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.dashboard-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.dashboard-stat-card {
+  padding: 16px;
+  border: 1px solid var(--dash-border);
+  border-radius: 16px;
+  background: var(--dash-card-bg);
+  transition:
+    transform 0.18s ease,
+    background 0.18s ease;
+}
+
+.dashboard-stat-card:hover {
+  background: var(--dash-card-bg-hover);
+  transform: translateY(-2px);
+}
+
+.dashboard-stat-label {
+  margin-bottom: 8px;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.dashboard-stat-value {
+  color: var(--text-normal);
+  font-size: 32px;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+ * TASK
+ * 对应文件：task
+ * ========================================================================== */
+
+.task-panel-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.task-panel-title {
+  color: var(--text-normal);
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.task-switch {
+  display: flex;
+  gap: 6px;
+  padding: 4px;
+  border: 1px solid var(--dash-border);
+  border-radius: 999px;
+  background: var(--dash-muted-bg);
+}
+
+.task-btn {
+  padding: 5px 14px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: var(--font-ui-small);
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+.task-btn:hover {
+  background: var(--dash-card-bg-hover);
+  color: var(--text-normal);
+}
+
+.task-btn.active {
+  background: var(--interactive-accent);
+  color: var(--text-on-accent);
+}
+
+.task-group-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 22px;
+  margin-bottom: 10px;
+  padding: 12px 14px;
+  border: 1px solid var(--dash-border);
+  border-radius: 14px;
+  background: var(--dash-card-bg);
+  color: var(--text-normal);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.task-group-count {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--dash-muted-bg);
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.task-empty {
+  padding: 10px 0;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+/* ==========================================================================
+ * TAGS
+ * 对应文件：tags
+ * ========================================================================== */
+
+.tags-panel {
+  padding: 24px;
+  border: 1px solid var(--dash-border);
+  border-radius: 24px;
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(120, 120, 255, 0.12),
+      transparent 35%
+    ),
+    var(--dash-soft-bg);
+}
+
+.tags-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.tags-panel-title {
+  color: var(--text-normal);
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.tags-panel-subtitle {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.tags-panel-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tags-panel-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px;
+  border: 1px solid var(--dash-border-strong);
+  border-radius: 999px;
+  color: var(--text-normal);
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.tags-panel-item:hover {
+  border-color: var(--interactive-accent);
+  transform: translateY(-2px);
+}
+
+.tags-panel-name {
+  font-weight: 600;
+}
+
+.tags-panel-count {
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: var(--dash-muted-bg);
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+.tags-empty {
+  padding: 10px 0;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+/* 标签热度颜色 */
+.tag-level-1 {
+  background: rgba(120, 120, 255, 0.08);
+}
+
+.tag-level-2 {
+  background: rgba(120, 180, 255, 0.12);
+}
+
+.tag-level-3 {
+  background: rgba(0, 180, 255, 0.14);
+}
+
+.tag-level-4 {
+  background: rgba(80, 200, 160, 0.16);
+}
+
+.tag-level-5 {
+  background: rgba(255, 160, 60, 0.18);
+}
+
+/* 亮色模式下增强标签颜色 */
+.theme-light .tag-level-1 {
+  background: rgba(120, 120, 255, 0.12);
+}
+
+.theme-light .tag-level-2 {
+  background: rgba(80, 150, 255, 0.15);
+}
+
+.theme-light .tag-level-3 {
+  background: rgba(0, 150, 220, 0.17);
+}
+
+.theme-light .tag-level-4 {
+  background: rgba(0, 160, 120, 0.18);
+}
+
+.theme-light .tag-level-5 {
+  background: rgba(255, 140, 40, 0.22);
+}
+
+/* ==========================================================================
+ * RECENT NOTES
+ * 对应文件：recent_notes
+ * ========================================================================== */
+
+.recent-notes {
+  padding: 24px;
+  border: 1px solid var(--dash-border);
+  border-radius: 24px;
+  background: var(--dash-soft-bg);
+}
+
+.recent-notes-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.recent-notes-title {
+  color: var(--text-normal);
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.recent-notes-count {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.recent-notes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.recent-note-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--dash-divider);
+}
+
+.recent-note-item:hover {
+  background: var(--dash-card-bg-hover);
+}
+
+.recent-note-title {
+  display: block;
+  color: var(--text-normal);
+  font-weight: 600;
+  text-decoration: none !important;
+}
+
+.recent-note-title:hover {
+  color: var(--interactive-accent);
+}
+
+.recent-note-meta {
+  margin-top: 4px;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+/* ==========================================================================
+ * PROJECTS
+ * 对应文件：projects
+ * ========================================================================== */
+
+.projects-panel {
+  margin-top: 24px;
+}
+
+.projects-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.projects-panel-title {
+  color: var(--text-normal);
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.projects-panel-count {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.projects-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.project-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--dash-divider);
+}
+
+.project-name {
+  overflow: hidden;
+  color: var(--text-normal);
+  font-weight: 600;
+  text-decoration: none !important;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.project-name:hover {
+  color: var(--interactive-accent);
+}
+
+.project-status {
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.project-status-active {
+  color: var(--text-normal);
+  background: rgba(120, 180, 255, 0.16);
+}
+
+.project-status-waiting {
+  color: var(--text-normal);
+  background: rgba(255, 180, 80, 0.18);
+}
+
+.project-status-paused {
+  color: var(--text-muted);
+  background: var(--dash-muted-bg);
+}
+
+.project-status-done {
+  color: var(--text-muted);
+  background: rgba(120, 255, 200, 0.14);
+}
+
+/* 亮色模式下增强项目状态 */
+.theme-light .project-status-active {
+  background: rgba(80, 150, 255, 0.18);
+}
+
+.theme-light .project-status-waiting {
+  background: rgba(255, 150, 40, 0.22);
+}
+
+.theme-light .project-status-done {
+  background: rgba(0, 160, 120, 0.18);
+}
+
+.project-due {
+  color: var(--text-muted);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.projects-empty {
+  padding: 10px 0;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+/* ==================================================
+ * PROJECT PAGE PROGRESS
+ * 项目页内进度组件
+ * ================================================== */
+
+.project-progress {
+  margin: 16px 0 24px 0;
+  padding: 16px;
+  border-radius: 16px;
+  background: var(--dash-card-bg);
+  border: 1px solid var(--dash-border);
+}
+
+.project-progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.project-progress-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-normal);
+}
+
+.project-progress-percent {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.project-progress-bar {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--dash-muted-bg);
+  overflow: hidden;
+}
+
+.project-progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--interactive-accent);
+}
+
+.project-progress-meta {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+ * HOME DASHBOARD MODE
+ * 仅作用于 Home.md
+ *
+ * Home.md 顶部添加：
+ *
+ * ---
+ * cssclasses:
+ *   - home-dashboard
+ * ---
+ * ========================================================================== */
+
+/* 清理嵌入文件外壳 */
+.home-dashboard .markdown-embed {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 0 24px 0 !important;
+  padding-left: 0 !important;
+  padding-inline-start: 0 !important;
+  border-left: 0 !important;
+}
+
+.home-dashboard .markdown-embed-content {
+  width: 100% !important;
+  max-width: 100% !important;
+  max-height: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.home-dashboard .markdown-embed-content > .markdown-preview-view {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.home-dashboard .markdown-embed-content .markdown-preview-sizer {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* 隐藏嵌入标题和右上角按钮 */
+.home-dashboard .markdown-embed-title,
+.home-dashboard .markdown-embed-link {
+  display: none !important;
+}
+
+/* 隐藏页面标题 */
+.home-dashboard .inline-title,
+.home-dashboard h1 {
+  display: none !important;
+}
+
+/* 隐藏 Properties */
+.home-dashboard .metadata-container,
+.home-dashboard .metadata-properties {
+  display: none !important;
+}
+
+/* 隐藏标签区 */
+.home-dashboard .tag,
+.home-dashboard .tree-item-self.tag-pane-tag {
+  display: none !important;
+}
+
+/* 隐藏出链 */
+.home-dashboard .outgoing-links,
+.home-dashboard .outgoing-link-pane {
+  display: none !important;
+}
+
+/* 隐藏反向链接 */
+.home-dashboard .backlinks-backlink,
+.home-dashboard .backlink-pane,
+.home-dashboard .embedded-backlinks,
+.home-dashboard .backlink-container {
+  display: none !important;
+}
+
+/* Dashboard 最大宽度 */
+.home-dashboard .markdown-preview-sizer {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* 页面顶部留白 */
+.home-dashboard .markdown-preview-view {
+  padding-top: 12px;
+}
